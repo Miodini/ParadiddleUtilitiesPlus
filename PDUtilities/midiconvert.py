@@ -103,7 +103,7 @@ class MidiConverter:
     # Returns a tuple of the default midi track we want to use in the form of
     # (midi track object, track index)
     def get_default_midi_track(self):
-        mid = MidiFile(self.midi_file, clip=True)
+        mid = MidiFile(self.midi_file_name, clip=True)
         
         self.midi_track_names.clear()
 
@@ -125,7 +125,7 @@ class MidiConverter:
         self.out_dict["instruments"] = []
         self.out_dict["events"] = []
         self.out_dict["bpmEvents"] = []
-        mid = MidiFile(self.midi_file, clip=True)
+        mid = MidiFile(self.midi_file_name, clip=True)
 
         try:
             # print("Mid length: " + str(mid.length))
