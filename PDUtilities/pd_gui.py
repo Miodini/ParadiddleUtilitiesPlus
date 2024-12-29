@@ -170,7 +170,7 @@ class PD_GUI(QtWidgets.QMainWindow):
             line_edit.setText(audio_file.split('/')[-1])
 
     def _select_cover_image_clicked(self):
-        self.mc.cover_image_path = QFileDialog.getOpenFileName(self, ("Select Cover Image"), self.lastOpenFolder, ("Image Files (*.png *.jpg)"))[0]
+        self.mc.cover_image_path = QFileDialog.getOpenFileName(self, ("Select Cover Image"), self.lastOpenFolder, ("Image Files (*.png *.jpg *.jpeg)"))[0]
         if self.mc.cover_image_path:
             self.lastOpenFolder = self.mc.cover_image_path.rsplit('/', 1)[0]
             self.coverImageLineEdit.setText(self.mc.cover_image_path.split('/')[-1])
