@@ -82,6 +82,10 @@ class PD_GUI(QtWidgets.QMainWindow):
         default_set_file = os.path.join(project_dir, "drum_sets", "defaultset.rlrr")
         default_drum_mapping_file = os.path.join(project_dir, 'midi_maps', 'pdtracks_mapping.yaml')
         default_output_dir = os.path.join(project_dir, "rlrr_files")
+        # Create the default output folder if it does not exist
+        if not os.path.exists(default_output_dir):
+            os.makedirs(default_output_dir)
+
         try:
             with open(os.path.join(project_dir, "pdsave.json")) as file:
                 pdsave = json.load(file)
