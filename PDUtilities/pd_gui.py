@@ -17,21 +17,13 @@ class PD_GUI(QtWidgets.QMainWindow):
         self.midicompanion = MidiCompanion()
         self.midicompanion.midi_msg_cb = self._midi_msg_callback
         self.midicompanion.connection_cb = self._connection_callback
+        self.lastOpenFolder = "."
         # Sets the window icon
         self.setWindowIcon(QIcon(os.path.join(project_dir, "assets", "favicon.ico")))
 
         # Loads the .ui file
         uic.loadUi(os.path.join(project_dir, "pd_gui_layout.ui"), self)
         self.songCreatorWidget.hide()
-
-        # Load IP address from save json file
-        try:
-            with open(os.path.join(project_dir, "pdsave.json")) as file:
-                pdsave = json.load(file)
-                if "ip" in pdsave:
-                    self.IPLineEdit.setText(pdsave["ip"])
-        except:
-            pass
 
         # Midi Companion Buttons
         self.connectButton.clicked.connect(self._connect_clicked)
@@ -65,13 +57,8 @@ class PD_GUI(QtWidgets.QMainWindow):
         self.midiTrackComboBox.currentIndexChanged.connect(self._midi_track_index_changed)
         self.difficultyComboBox.currentTextChanged.connect(self._difficulty_text_changed)
         self.complexityComboBox.currentTextChanged.connect(self._complexity_text_changed)
-        
-        self.lastOpenFolder = "."
-        
-        # Loads the default drum set that many custom songs will utilize 
-        default_set_file = os.path.join(project_dir, "drum_sets", "defaultset.rlrr")
-        self.set_default_set(default_set_file)
-        
+                
+        self.load_default_files()
         self.show()
     
     def closeEvent(self, event):
@@ -79,25 +66,58 @@ class PD_GUI(QtWidgets.QMainWindow):
             self.midicompanion.stopEvent.set()
             self.midicompanion.client_socket.close()
         
-        # Save IP address to json file
+        # Save IP address and directories to json file
         with open(os.path.join(project_dir, "pdsave.json"), "w") as file:
-            json.dump({"ip": self.IPLineEdit.text()}, file)
+            json.dump({
+                "ip": self.IPLineEdit.text(),
+                "drumSetFile": self.mc.drum_set_file,
+                "drumMappingFile": self.mc.drum_mapping_file,
+                "outputRlrrDir": self.mc.output_rlrr_dir
+                }, file)
 
         event.accept()
  
-    def set_default_set(self, default_set):
-        self.mc.analyze_drum_set(default_set)
-        
-        self.mc.output_rlrr_dir = "rlrr_files"
+    def load_default_files(self):
+        # Initializes the paths with the saved or the default values
+        default_set_file = os.path.join(project_dir, "drum_sets", "defaultset.rlrr")
+        default_drum_mapping_file = os.path.join(project_dir, 'midi_maps', 'pdtracks_mapping.yaml')
+        default_output_dir = os.path.join(project_dir, "rlrr_files")
+        try:
+            with open(os.path.join(project_dir, "pdsave.json")) as file:
+                pdsave = json.load(file)
+                if "ip" in pdsave:
+                    self.IPLineEdit.setText(pdsave["ip"])
 
+                if "drumSetFile" in pdsave and os.path.exists(pdsave["drumSetFile"]):
+                    self.mc.drum_set_file = pdsave["drumSetFile"] 
+                else:
+                    self.mc.drum_set_file = default_set_file
+
+                if "drumMappingFile" in pdsave and os.path.exists(pdsave["drumMappingFile"]):
+                    self.mc.drum_mapping_file = pdsave["drumMappingFile"]
+                else:
+                    self.mc.drum_mapping_file = default_drum_mapping_file
+
+                if "outputRlrrDir" in pdsave and os.path.exists(pdsave["outputRlrrDir"]):
+                    self.mc.output_rlrr_dir = pdsave["outputRlrrDir"]
+                else:
+                    self.mc.output_rlrr_dir = default_output_dir
+        except:
+            self.mc.drum_set_file = default_set_file
+            self.mc.drum_mapping_file = default_drum_mapping_file
+            self.mc.output_rlrr_dir = default_output_dir
+        finally:
+            self.drumSetLineEdit.setText(os.path.basename(self.mc.drum_set_file))
+            self.midiMappingLineEdit.setText(os.path.basename(self.mc.drum_mapping_file))
+
+        self.mc.analyze_drum_set(self.mc.drum_set_file)
+        
         # Sets the last open folder to drum_sets directory
-        self.lastOpenFolder = os.path.dirname(default_set)
+        self.lastOpenFolder = os.path.dirname(self.mc.drum_set_file)
          
-        midi_yaml = os.path.join(project_dir, 'midi_maps', 'pdtracks_mapping.yaml')
-        with open(midi_yaml) as file:
+        with open(self.mc.drum_mapping_file) as file:
             midi_yaml_dict = yaml.load(file, Loader=yaml.FullLoader)
             self.mc.create_midi_map(midi_yaml_dict)
-            self.midiMappingLineEdit.setText(os.path.basename(midi_yaml))
 
     # LOCAL GUI FUNCTIONS
 
@@ -109,12 +129,12 @@ class PD_GUI(QtWidgets.QMainWindow):
 
     def _select_midi_clicked(self):
         self.midiTrackComboBox.clear()
-        self.mc.midi_file_name = QFileDialog.getOpenFileName(self, ("Select Midi File"), self.lastOpenFolder, ("Midi Files (*.mid *.midi *.kar)"))[0]
+        self.mc.midi_file = QFileDialog.getOpenFileName(self, ("Select Midi File"), self.lastOpenFolder, ("Midi Files (*.mid *.midi *.kar)"))[0]
         
-        if self.mc.midi_file_name:
+        if self.mc.midi_file:
             (default_track, default_index) = self.mc.get_default_midi_track()
-            self.lastOpenFolder = self.mc.midi_file_name.rsplit('/', 1)[0]
-            self.midiFileLineEdit.setText(self.mc.midi_file_name.split('/')[-1])
+            self.lastOpenFolder = self.mc.midi_file.rsplit('/', 1)[0]
+            self.midiFileLineEdit.setText(self.mc.midi_file.split('/')[-1])
             for i in range(len(self.mc.midi_track_names)):
                 item_name = 'Track ' + str(i) + ': ' + self.mc.midi_track_names[i]
                 if i >= (self.midiTrackComboBox.count()):
@@ -126,29 +146,31 @@ class PD_GUI(QtWidgets.QMainWindow):
             self.midiTrackComboBox.setCurrentIndex(self.mc.convert_track_index)
 
     def _select_midi_map_clicked(self):
-        midi_yaml = QFileDialog.getOpenFileName(self, ("Select Midi File"), self.lastOpenFolder, ("Midi Map (*.yaml *yml)"))[0]
+        file_name = QFileDialog.getOpenFileName(self, ("Select Midi File"), self.mc.drum_mapping_file, ("Midi Map (*.yaml *yml)"))[0]
 
-        if midi_yaml:
-            with open(midi_yaml) as file:
+        if file_name:
+            self.mc.drum_mapping_file = file_name
+            with open(file_name) as file:
                 midi_yaml_dict = yaml.load(file, Loader=yaml.FullLoader)
                 self.mc.create_midi_map(midi_yaml_dict)
-                self.midiMappingLineEdit.setText(midi_yaml.split('/')[-1])
+                self.midiMappingLineEdit.setText(file_name.split('/')[-1])
         
     def _set_output_clicked(self):
-        output_folder = QFileDialog.getExistingDirectory(self, ("Select Folder"), self.lastOpenFolder)
-        print(output_folder)
-        self.mc.output_rlrr_dir = output_folder
+        output_folder = QFileDialog.getExistingDirectory(self, ("Select Folder"), self.mc.output_rlrr_dir)
+        if output_folder:
+            self.mc.output_rlrr_dir = output_folder
 
     def _midi_track_index_changed(self, index):
         self.mc.convert_track_index = index
 
     def _select_drum_set_clicked(self):
-        self.mc.drum_set_file = QFileDialog.getOpenFileName(self, ("Select Drum Set File"), self.lastOpenFolder, ("PD Drum Set Files (*.rlrr)"))[0]
+        file_name = QFileDialog.getOpenFileName(self, ("Select Drum Set File"), self.mc.drum_set_file, ("PD Drum Set Files (*.rlrr)"))[0]
 
-        if self.mc.drum_set_file:
-            self.mc.analyze_drum_set(self.mc.drum_set_file)
-            self.lastOpenFolder = self.mc.drum_set_file.rsplit('/', 1)[0]
-            self.drumSetLineEdit.setText(self.mc.drum_set_file.split('/')[-1])
+        if file_name:
+            self.mc.drum_set_file = file_name
+            self.mc.analyze_drum_set(file_name)
+            self.lastOpenFolder = file_name.rsplit('/', 1)[0]
+            self.drumSetLineEdit.setText(file_name.split('/')[-1])
 
     def _select_audio_file_clicked(self):
         sender_name = self.sender().objectName()

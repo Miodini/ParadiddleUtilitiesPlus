@@ -36,10 +36,10 @@ class MidiConverter:
         self.difficulty = self.difficulty_names[0]
 
         # TODO: Replace filenames, this is gonna be a python package
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        self.drum_set_file = os.path.join(script_dir,'drum_sets','defaultset.rlrr')
+        self.drum_set_file = ''
         self.drum_set_dict = None
-        self.midi_file_name = ''
+        self.drum_mapping_file = ''
+        self.midi_file = ''
         self.output_rlrr_dir = ''
         self.song_tracks = [""] * 5
         self.drum_tracks = [""] * 4
@@ -103,7 +103,7 @@ class MidiConverter:
     # Returns a tuple of the default midi track we want to use in the form of
     # (midi track object, track index)
     def get_default_midi_track(self):
-        mid = MidiFile(self.midi_file_name, clip=True)
+        mid = MidiFile(self.midi_file, clip=True)
         
         self.midi_track_names.clear()
 
@@ -125,7 +125,7 @@ class MidiConverter:
         self.out_dict["instruments"] = []
         self.out_dict["events"] = []
         self.out_dict["bpmEvents"] = []
-        mid = MidiFile(self.midi_file_name, clip=True)
+        mid = MidiFile(self.midi_file, clip=True)
 
         try:
             # print("Mid length: " + str(mid.length))
