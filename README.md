@@ -1,6 +1,7 @@
-**Paradiddle Utilities**
+**Paradiddle Utilities+**
 
 Utility apps and libraries for Paradiddle, currently containing the song creator.
+This is a fork of https://github.com/emretanirgan/ParadiddleUtilities, with bug fixes and enhancements
 
 **Song Creator & Custom Song Guide:** https://paradiddleapp.com/custom-song-guide
 
