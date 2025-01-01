@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QIcon
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtGui import QIcon
+from PyQt6 import QtWidgets, uic
+from PyQt6.QtWidgets import QFileDialog
 from midiconvert import MidiConverter
 from midicompanion import MidiCompanion
 import yaml
@@ -42,6 +42,7 @@ class PD_GUI(QtWidgets.QMainWindow):
         self.selectCoverImageButton.clicked.connect(self._select_cover_image_clicked)
         self.songCreatorButton.clicked.connect(self._song_creator_clicked)
         self.midiCompanionButton.clicked.connect(self._midi_companion_clicked)
+        self.actionNew.triggered.connect(lambda: print('asidh'))
         # self.selectDrumTrackButton_1.clicked.connect(self._select_audio_file_clicked)
         # self.calibrationSpinBox.valueChanged.connect(self._calibration_offset_changed)
         

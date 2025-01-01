@@ -14,11 +14,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 from pd_gui import PD_GUI
 
 if __name__ == '__main__':
     # Sets primary window for the application
     app = QtWidgets.QApplication(sys.argv)
     window = PD_GUI()
-    app.exec_()
+    app.exec()

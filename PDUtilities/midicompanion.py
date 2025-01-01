@@ -16,7 +16,7 @@
 from mido import MidiFile, tempo2bpm
 import threading
 import socket
-from PyQt5.QtWidgets import *
+from PyQt6.QtWidgets import *
 import mido
 import json
 import os

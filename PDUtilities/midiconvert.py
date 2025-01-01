@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from mido import MidiFile, tempo2bpm
-from PyQt5.QtWidgets import *
+from PyQt6.QtWidgets import *
 import mido
 import json
 import os
