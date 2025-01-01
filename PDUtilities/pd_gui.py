@@ -42,7 +42,6 @@ class PD_GUI(QtWidgets.QMainWindow):
         self.selectCoverImageButton.clicked.connect(self._select_cover_image_clicked)
         self.songCreatorButton.clicked.connect(self._song_creator_clicked)
         self.midiCompanionButton.clicked.connect(self._midi_companion_clicked)
-        self.actionNew.triggered.connect(lambda: print('asidh'))
         # self.selectDrumTrackButton_1.clicked.connect(self._select_audio_file_clicked)
         # self.calibrationSpinBox.valueChanged.connect(self._calibration_offset_changed)
         
