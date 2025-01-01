@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>492</height>
+    <width>598</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,9 +58,9 @@ QCheckBox {
     <widget class="QLabel" name="statusLabel">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>350</y>
-       <width>601</width>
+       <width>591</width>
        <height>41</height>
       </rect>
      </property>
@@ -71,7 +71,7 @@ QCheckBox {
       <string/>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QPushButton" name="convertButton">
@@ -86,7 +86,6 @@ QCheckBox {
      <property name="font">
       <font>
        <pointsize>-1</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -108,7 +107,6 @@ QCheckBox {
      </property>
      <property name="font">
       <font>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -116,7 +114,7 @@ QCheckBox {
       <bool>false</bool>
      </property>
      <property name="tabShape">
-      <enum>QTabWidget::Rounded</enum>
+      <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
       <number>3</number>
@@ -141,7 +139,7 @@ QCheckBox {
         </sizepolicy>
        </property>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <widget class="QLabel" name="drumSetLabel">
         <property name="sizePolicy">
@@ -208,11 +206,11 @@ QCheckBox {
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>16777215</height>
+         <height>24</height>
         </size>
        </property>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <widget class="QLabel" name="midiFileLabel">
         <property name="sizePolicy">
@@ -385,7 +383,7 @@ QCheckBox {
         </rect>
        </property>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <widget class="QLabel" name="midiMappingLabel">
         <property name="sizePolicy">
@@ -584,7 +582,7 @@ QCheckBox {
            <number>0</number>
           </property>
           <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
+           <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
           </property>
           <property name="topMargin">
            <number>0</number>
@@ -606,11 +604,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="songTrackLabel_1">
              <property name="sizePolicy">
@@ -696,11 +694,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="audioFileLabel_2">
              <property name="sizePolicy">
@@ -783,11 +781,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="songTrackLabel_3">
              <property name="sizePolicy">
@@ -870,11 +868,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="songTrackLabel_4">
              <property name="sizePolicy">
@@ -963,11 +961,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="songTrackLabel_5">
              <property name="sizePolicy">
@@ -1050,7 +1048,7 @@ QCheckBox {
            </size>
           </property>
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Orientation::Vertical</enum>
           </property>
          </widget>
         </item>
@@ -1060,7 +1058,7 @@ QCheckBox {
            <number>0</number>
           </property>
           <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
+           <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
           </property>
           <property name="topMargin">
            <number>0</number>
@@ -1082,11 +1080,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="drumTrackLabel_1">
              <property name="sizePolicy">
@@ -1169,11 +1167,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="drumTrackLabel_2">
              <property name="sizePolicy">
@@ -1256,11 +1254,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="drumTrackLabel_3">
              <property name="sizePolicy">
@@ -1343,11 +1341,11 @@ QCheckBox {
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>24</height>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <widget class="QLabel" name="drumTrackLabel_4">
              <property name="sizePolicy">
@@ -1422,10 +1420,10 @@ QCheckBox {
           <item>
            <spacer name="verticalSpacer">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Maximum</enum>
+             <enum>QSizePolicy::Policy::Maximum</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -1457,7 +1455,7 @@ QCheckBox {
         <string>Song Tracks</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_3">
@@ -1478,7 +1476,7 @@ QCheckBox {
         <string>Drum Tracks</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
      </widget>
@@ -1822,7 +1820,7 @@ QCheckBox {
       <string/>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
      <property name="placeholderText">
       <string>xxx.xxx.xxx.xxx</string>
@@ -1881,7 +1879,7 @@ QCheckBox {
      <string/>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -1938,7 +1936,7 @@ QCheckBox {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>610</width>
+     <width>598</width>
      <height>21</height>
     </rect>
    </property>
