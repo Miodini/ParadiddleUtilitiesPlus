@@ -13,16 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from mido import MidiFile, tempo2bpm
 import threading
 import socket
 from PyQt6.QtWidgets import *
 import mido
-import json
-import os
-from shutil import copyfile
-import soundfile as sf
-import copy
 
 message_types = {
     8: "note_off",
@@ -36,7 +30,7 @@ message_types = {
 # Midi Companion class that receives incoming UDP midi messages
 # and converts them to proper midi messages sent to a midi output
 # through mido.
-class MidiCompanion:
+class MidiCompanionModel:
     def __init__(self):
         self.midi_input = None
         self.midi_output = None

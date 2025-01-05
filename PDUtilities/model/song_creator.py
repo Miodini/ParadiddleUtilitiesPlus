@@ -22,8 +22,9 @@ from shutil import copyfile
 import soundfile as sf
 import copy
 
-class MidiConverter:
+class SongCreatorModel:
     def __init__(self):
+        self.is_modified = False
         self.out_dict = {
             'version' : 0.5,
             'recordingMetadata' : {},
@@ -44,6 +45,7 @@ class MidiConverter:
         self.song_tracks = [""] * 5
         self.drum_tracks = [""] * 4
         self.calibration_offset = 0
+        self.last_open_folder = "."
 
         self.midi_lenth = 0
         self.song_length = 0
@@ -118,7 +120,7 @@ class MidiConverter:
                 track_to_convert = track
                 default_index = i
                 print("found drum in " + str(track_to_convert) + " " + str(default_index))
-        return (track_to_convert, default_index)
+        return default_index
 
     def analyze_midi_file(self):
         self.out_dict["version"] = 0.6
